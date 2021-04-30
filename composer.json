@@ -1,0 +1,13 @@
+{
+    "name": "rico/tugas-crud",
+    "description": "Tugas PEngaweb",
+    "authors": [
+        {
+            "name": "Rico Ferdian Maulana Putra Surya",
+            "email": "ferdianrico6@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "4.6.0"
+    }
+}
