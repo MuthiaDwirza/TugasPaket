@@ -37,47 +37,48 @@
 
 <div class="container-fluid isi">
     <div class="row">
-        <div class="col-sm-12">
-            <p class="h3 text-center">Form Penerimaan Paket</p>
+        <div class="col-sm">
+            <p class="h3 text-center">Data Paket Asrama</p>
         </div>
     </div>
     <hr>
     <div class="row isi">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-        <form action="tambah-paket.php" method="POST">
-            <div class="form-group">
-                <label for="id-paket">ID Paket</label>
-                <input type="text" class="form-control" id="id-paket" name="id-paket">
-            </div>
-            <div class="form-group">
-                <label for="isi-paket">Isi Paket</label>
-                <textarea class="form-control" id="isi-paket" rows="4" name="isi-paket"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="tanggal-terima">Tanggal Terima</label>
-                <input type="date" class="form-control" id="tanggal-terima" name="tanggal-terima">
-            </div>
-            <div class="form-group">
-                <label for="id-penghuni">ID Penghuni</label>
-                <select class="custom-select" id="id-penghuni" name="id-penghuni">
-                    <option selected disabled>Choose</option>
-<?php
-  require_once("connection.php");
-  $sql = "SELECT id_penghuni FROM penghuni";
-  $result = pg_query($conn, $sql);
-  while($row = pg_fetch_assoc($result)){
-?>
-                    <option value="<?php echo $row['id_penghuni'];?>"><?php echo $row['id_penghuni']; ?></option>
-<?php
-  }
-?>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">ID Paket</th>
+                <th scope="col">Isi Paket</th>
+                <th scope="col">Tanggal Terima</th>
+                <th scope="col">ID Penghuni</th>
+                </tr>
+            </thead>
+            <tbody>
+  <?php
+    require_once("connection.php");
+    $sql = "SELECT * FROM paket";
+    $result = pg_query($conn, $sql);
+    $nomor = 1;
+    while($row = pg_fetch_assoc($result)){
+    
+  ?>
+                <tr>
+                <th scope="row"><?php echo $nomor; ?></th>
+                <td><?php echo $row['id_paket'] ?></td>
+                <td><?php echo $row['isi_paket'] ?></td>
+                <td><?php echo $row['tanggal_terima'] ?></td>
+                <td><?php echo $row['id_penghuni'] ?></td>
+                </tr>
+  <?php
+     $nomor++;
+    }
+  ?>
+            </tbody>
+            </table>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-sm-1"></div>
     </div>
 </div>
 <br>

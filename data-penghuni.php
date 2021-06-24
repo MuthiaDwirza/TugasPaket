@@ -37,47 +37,59 @@
 
 <div class="container-fluid isi">
     <div class="row">
-        <div class="col-sm-12">
-            <p class="h3 text-center">Form Penerimaan Paket</p>
+        <div class="col-sm">
+            <p class="h3 text-center">Data Penghuni Asrama</p>
         </div>
     </div>
     <hr>
     <div class="row isi">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-        <form action="tambah-paket.php" method="POST">
-            <div class="form-group">
-                <label for="id-paket">ID Paket</label>
-                <input type="text" class="form-control" id="id-paket" name="id-paket">
-            </div>
-            <div class="form-group">
-                <label for="isi-paket">Isi Paket</label>
-                <textarea class="form-control" id="isi-paket" rows="4" name="isi-paket"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="tanggal-terima">Tanggal Terima</label>
-                <input type="date" class="form-control" id="tanggal-terima" name="tanggal-terima">
-            </div>
-            <div class="form-group">
-                <label for="id-penghuni">ID Penghuni</label>
-                <select class="custom-select" id="id-penghuni" name="id-penghuni">
-                    <option selected disabled>Choose</option>
-<?php
-  require_once("connection.php");
-  $sql = "SELECT id_penghuni FROM penghuni";
-  $result = pg_query($conn, $sql);
-  while($row = pg_fetch_assoc($result)){
-?>
-                    <option value="<?php echo $row['id_penghuni'];?>"><?php echo $row['id_penghuni']; ?></option>
-<?php
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <a href="tambah-penghuni.php"><button type="button" class="btn btn-success">Tambah</button></a>
+      </div>
+    </div>
+    
+    <div class="row isi">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">ID Penghuni</th>
+                <th scope="col">Nama Penghuni</th>
+                <th scope="col">Nomor Kamar</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+  <?php
+    require_once("connection.php");
+    $sql = "SELECT * FROM penghuni
+              ORDER BY nama_penghuni ASC";
+    $result = pg_query($conn, $sql);
+    $nomor = 1;
+    while($row = pg_fetch_assoc($result)){
+    
+  ?>
+                <th scope="row"><?php echo $nomor;?></th>
+                <td><?php echo $row['id_penghuni'] ?></td>
+                <td><?php echo $row['nama_penghuni'] ?></td>
+                <td><?php echo $row['nomor_kamar'] ?></td>
+                <td>
+                <a href="hapus-penghuni.php?id=<?php echo $row['id_penghuni']; ?>"><button type="button" class="btn btn-danger">Hapus</button></a>
+                <a href="ubah-penghuni.php?id=<?php echo $row['id_penghuni']; ?>"><button type="button" class="btn btn-warning">Ubah</button></a>
+                </td>
+                </tr>
+                <?php
+    $nomor++;
   }
 ?>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+            </tbody>
+            </table>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-sm-1"></div>
     </div>
 </div>
 <br>
